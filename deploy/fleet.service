@@ -1,0 +1,25 @@
+[Unit]
+Description=Mosab's Telegram agent fleet (Tony, Berlin, Warden)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=fleet
+WorkingDirectory=/opt/fleet
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/fleet/.venv/bin/python -m fleet run
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# containment
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/fleet
+
+[Install]
+WantedBy=multi-user.target

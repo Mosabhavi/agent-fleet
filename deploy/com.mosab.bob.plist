@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Bob, on the Mac. Install with:
+    mkdir -p ~/fleet && cp -R . ~/fleet && cd ~/fleet
+    python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+    cp .env.example .env    # fill in BOB_BOT_TOKEN, FLEET_CHAT_ID, ANTHROPIC_API_KEY
+    cp deploy/com.mosab.bob.plist ~/Library/LaunchAgents/
+    # edit the paths below to your real home directory first
+    launchctl load ~/Library/LaunchAgents/com.mosab.bob.plist
+
+  Grant Full Disk Access to /bin/bash (or your python) in System Settings >
+  Privacy & Security if Bob cannot see Desktop and Documents.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.mosab.bob</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/CHANGEME/fleet/.venv/bin/python</string>
+    <string>-m</string>
+    <string>fleet</string>
+    <string>bob</string>
+  </array>
+  <key>WorkingDirectory</key><string>/Users/CHANGEME/fleet</string>
+  <key>StartInterval</key><integer>3600</integer>
+  <key>RunAtLoad</key><true/>
+  <key>StandardOutPath</key><string>/tmp/bob.log</string>
+  <key>StandardErrorPath</key><string>/tmp/bob.err</string>
+</dict>
+</plist>
